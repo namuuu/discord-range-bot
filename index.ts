@@ -1,4 +1,4 @@
-import { Client, Events, GatewayIntentBits } from "discord.js";
+import { ActivityType, Client, Events, GatewayIntentBits } from "discord.js";
 import dotenv from "dotenv";
 import { setup as setupCommands } from "./setup/commands.setup.ts";
 import type { DiscordClient } from "./models/client.model.ts";
@@ -12,6 +12,11 @@ dotenv.config({quiet: true});
 
 client.once(Events.ClientReady, async (readyClient) => {
     console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+
+    client.user?.setPresence({
+        activities: [{ name: "Pour voir vos propres notes, utilisez /notes", type: ActivityType.Competing }],
+    })
+
     await setupCommands(client);
 });
 
