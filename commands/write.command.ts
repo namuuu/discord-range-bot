@@ -43,9 +43,10 @@ const command: DefaultCommand = {
 }
 
 export async function receiveNote(interaction: ModalSubmitInteraction, userId: string, note: string): Promise<void> {
+    interaction.deferReply({ flags: MessageFlags.Ephemeral});
     await NotesCollection.add(userId, note);
 
-    interaction.reply({ content: "Note enregistrée avec succès !", flags: MessageFlags.Ephemeral });
+    interaction.editReply({ content: "Note enregistrée avec succès !" });
 }
 
 export default command;
