@@ -14,8 +14,8 @@ const command: DefaultCommand = {
         ),
     execute: async (interaction: ChatInputCommandInteraction) => {
         const user = interaction.options.getUser("user") || interaction.user;
-
-        await interaction.deferReply({ ephemeral: true });
+        
+        await interaction.deferReply();
 
         const notes = await NotesCollection.get(user.id);
 
@@ -25,7 +25,7 @@ const command: DefaultCommand = {
         }
 
         const embed = NotesEmbed.display(notes, user.tag, user.displayAvatarURL(), 0);
-
+        
         await interaction.editReply({ embeds: [embed] });
     }
 }
