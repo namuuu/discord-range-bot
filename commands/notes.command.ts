@@ -15,16 +15,18 @@ const command: DefaultCommand = {
     execute: async (interaction: ChatInputCommandInteraction) => {
         const user = interaction.options.getUser("user") || interaction.user;
 
+        await interaction.deferReply({ ephemeral: true });
+
         const notes = await NotesCollection.get(user.id);
 
         if (notes.length === 0) {
-            await interaction.reply({ content: `Aucune note trouvée pour ${user.tag}.`, flags: MessageFlags.Ephemeral });
+            await interaction.editReply({ content: `Aucune note trouvée pour ${user.tag}.` });
             return;
         }
 
         const embed = NotesEmbed.display(notes, user.tag, user.displayAvatarURL(), 0);
 
-        await interaction.reply({ embeds: [embed] });
+        await interaction.editReply({ embeds: [embed] });
     }
 }
 
