@@ -26,6 +26,7 @@ const command: DefaultCommand = {
 
         const embed = NotesEmbed.display(notes, user.tag, user.displayAvatarURL(), 0);
         
+        console.log(`Displaying notes for user: ${user.tag} with ${notes.length} notes found.`);
         await interaction.editReply({ embeds: [embed] });
     }
 }
